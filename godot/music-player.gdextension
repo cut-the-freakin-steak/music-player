@@ -4,11 +4,11 @@ compatibility_minimum = 4.2
 reloadable = true
 
 [libraries]
-linux.debug.x86_64 =     "res://../rust/target/debug/libmusic_player.so"
-macos.debug.arm64 =      "res://../rust/target/debug/libmusic_player.dylib"
-web.debug.wasm32 =       "res://../rust/target/wasm32-unknown-emscripten/debug/music_player.wasm"
+linux.debug.x86_64 =     "../rust/target/debug/libmusic_player.so"
+macos.debug.arm64 =      "../rust/target/debug/libmusic_player.dylib"
+web.debug.wasm32 =       "../rust/target/wasm32-unknown-emscripten/debug/music_player.wasm"
 
-linux.release.x86_64 =   "res://../rust/target/x86_64-unknown-linux-gnu/release/libmusic_player.so"
-macos.release =          "res://../rust/target/x86_64-apple-darwin/release/libmusic_player.dylib"
-windows.release.x86_64 = "res://../rust/target/x86_64-pc-windows-gnu/release/music_player.dll"
-wasm32.release =         "res://../rust/target/wasm32-unknown-emscripten/release/music_player.wasm"
+linux.release.x86_64 =   "../rust/target/x86_64-unknown-linux-gnu/release/libmusic_player.so"
+macos.release =          "../rust/target/x86_64-apple-darwin/release/libmusic_player.dylib"
+windows.release.x86_64 = "../rust/target/x86_64-pc-windows-gnu/release/music_player.dll"
+wasm32.release =         "../rust/target/wasm32-unknown-emscripten/release/music_player.wasm"
