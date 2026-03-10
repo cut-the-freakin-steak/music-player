@@ -1,0 +1,25 @@
+[package]
+name = "music-app"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = [
+  "cdylib",
+  "staticlib",
+]  # Compile this crate to a dynamic C library.
+
+[dependencies]
+godot = { git = "https://github.com/godot-rust/gdext.git", branch = "master", features = [
+  "api-custom",
+  "experimental-wasm",
+  "lazy-function-tables",
+] }
+
+[lints.clippy]
+needless_return = "allow"
+redundant_closure = "allow"
+
+[lints.rust]
+non_snake_case = "allow"
+unexpected_cfgs = "allow"

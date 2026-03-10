@@ -1,0 +1,48 @@
+[env]
+# symlink the actual binary for the godot version you need for no file extension
+GODOT4_BIN = { value = "../../godot", relative = true, force = true }
+
+[target.wasm32-unknown-emscripten]
+rustflags = [
+  "-C",
+  "link-args=-pthread",
+  "-C",
+  "target-feature=+atomics",
+  "-C",
+  "link-args=-sSIDE_MODULE=2",
+  "-C",
+  "llvm-args=-enable-emscripten-cxx-exceptions=0",
+  "-Z",
+  "default-visibility=hidden",
+  "-Z",
+  "link-native-libraries=no",
+  "-Z",
+  "emscripten-wasm-eh=false",
+]
+
+[target.x86_64-linux-android]
+ar = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
+linker = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android21-clang"
+
+[target.aarch64-linux-android]
+ar = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
+linker = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang"
+
+[target.armv7-linux-androideabi]
+ar = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
+linker = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi21-clang"
+
+[target.i686-linux-android]
+ar = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
+linker = "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android21-clang"
+
+[target.x86_64-pc-windows-gnu]
+ar = "x86_64-w64-mingw32-ar"
+linker = "x86_64-w64-mingw32-gcc"
+
+[target.i686-pc-windows-gnu]
+ar = "i686-w64-mingw32-ar"
+linker = "i686-w64-mingw32-gcc"
+
+[target.aarch64-unknown-linux-gnu]
+linker = "aarch64-linux-gnu-gcc"

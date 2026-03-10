@@ -1,0 +1,14 @@
+# godot 4+ specific ignores
+/godot/.godot/
+/godot/.import/
+/**/*.import
+/godot/android/
+/godot/exports/**/*
+
+# rust ignores
+/rust/target/
+/rust/.rustc_info.json/
+/rust/CACHEDIR.TAG
+
+# i hate macos
+.DS_Store
