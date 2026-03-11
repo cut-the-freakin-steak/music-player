@@ -1,8 +1,18 @@
 [gd_scene format=3 uid="uid://cmyo47lj3n10w"]
 
-[node name="Player" type="Player" unique_id=764199315]
+[node name="Player" type="Player" unique_id=2072917149]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PlayPause" type="CheckButton" parent="." unique_id=1225944942]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 280.0
+offset_right = 284.0
+offset_bottom = 304.0
+scale = Vector2(3, 3)
+alignment = 1
+icon_alignment = 1

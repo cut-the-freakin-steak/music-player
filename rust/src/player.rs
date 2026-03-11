@@ -1,4 +1,4 @@
-use godot::classes::{Control, IControl};
+use godot::classes::{CheckButton, Control, IControl};
 use godot::prelude::*;
 
 /// The music player scene
@@ -6,6 +6,9 @@ use godot::prelude::*;
 #[class(init, base = Control)]
 struct Player {
     base: Base<Control>,
+
+    #[init(node = "PlayPause")]
+    play_pause: OnReady<Gd<CheckButton>>,
 }
 
 #[godot_api]
