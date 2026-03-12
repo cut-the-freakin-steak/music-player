@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cmyo47lj3n10w"]
 
 [ext_resource type="Texture2D" uid="uid://cqk11r4uxhxua" path="res://assets/sprites/play_botton.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cr56yp27mryrx" path="res://assets/sprites/icon.png" id="2_g2els"]
 
 [node name="Player" type="Player" unique_id=657746131]
 anchors_preset = -1
@@ -23,7 +24,7 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayPause" type="CheckButton" parent="." unique_id=1225944942]
 layout_mode = 2
 theme_override_icons/checked = ExtResource("1_3vyb7")
-theme_override_icons/unchecked = ExtResource("1_3vyb7")
+theme_override_icons/unchecked = ExtResource("2_g2els")
 alignment = 1
 icon_alignment = 1
 expand_icon = true
