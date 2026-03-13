@@ -1,18 +1,20 @@
 [gd_scene format=3 uid="uid://cmyo47lj3n10w"]
 
-[ext_resource type="Texture2D" uid="uid://cqk11r4uxhxua" path="res://assets/sprites/play_botton.png" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://cr56yp27mryrx" path="res://assets/sprites/icon.png" id="2_g2els"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3vyb7"]
+load_path = "res://.godot/imported/play_botton.png-17c0e7e4d1aa72a9af422031af7d4675.ctex"
 
 [node name="Player" type="Player" unique_id=657746131]
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 1.0042483
 offset_left = -320.0
-offset_top = -104.0
+offset_top = -120.000015
 offset_right = 72.15683
-offset_bottom = -40.274536
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1.632, 1.632)
@@ -23,8 +25,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PlayPause" type="CheckButton" parent="." unique_id=1225944942]
 layout_mode = 2
-theme_override_icons/checked = ExtResource("1_3vyb7")
-theme_override_icons/unchecked = ExtResource("2_g2els")
+theme_override_icons/checked = ExtResource("2_g2els")
+theme_override_icons/unchecked = SubResource("CompressedTexture2D_3vyb7")
 alignment = 1
 icon_alignment = 1
 expand_icon = true

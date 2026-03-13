@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://de30trtxaj2me"]
 
-[ext_resource type="PackedScene" uid="uid://cmyo47lj3n10w" path="res://scenes/player.tscn" id="1_o5qli"]
-
 [node name="Main" type="Control" unique_id=2014951938]
 layout_mode = 3
 anchors_preset = 15
@@ -10,12 +8,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
-
-[node name="Player" parent="." unique_id=657746131 instance=ExtResource("1_o5qli")]
-layout_mode = 1
-anchor_top = 1.0001107
-anchor_bottom = 1.000111
-offset_top = -104.04
-offset_bottom = -40.314537
-grow_horizontal = 1
-grow_vertical = 1
