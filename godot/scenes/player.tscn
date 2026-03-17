@@ -1,33 +1,85 @@
 [gd_scene format=3 uid="uid://cmyo47lj3n10w"]
 
+[ext_resource type="Texture2D" uid="uid://dla8g466exqvw" path="res://assets/sprites/skip_n_rewind_backwards.png" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cr56yp27mryrx" path="res://assets/sprites/icon.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://cq4u3oppa2jvx" path="res://assets/sprites/skip_n_rewind.png" id="3_dqkch"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qlg0r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tuyoq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fjrip"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhqgy"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3vyb7"]
 load_path = "res://.godot/imported/play_botton.png-17c0e7e4d1aa72a9af422031af7d4675.ctex"
 
-[node name="Player" type="Player" unique_id=657746131]
-anchors_preset = -1
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_smehm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ur7pv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y4r1p"]
+
+[node name="Player" type="Player" unique_id=1234283124]
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0042483
+anchor_bottom = 1.0
 offset_left = -320.0
-offset_top = -120.000015
-offset_right = 72.15683
-offset_bottom = -48.0
+offset_top = -85.104004
+offset_right = 221.45502
+offset_bottom = -13.104004
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(1.632, 1.632)
+scale = Vector2(1.182, 1.182)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-alignment = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="PlayPause" type="CheckButton" parent="." unique_id=1225944942]
+[node name="Container" type="HBoxContainer" parent="." unique_id=1801584639]
+layout_mode = 0
+offset_left = 170.0
+offset_right = 370.0
+offset_bottom = 72.0
+
+[node name="Rewind" type="Button" parent="Container" unique_id=1091556255]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qlg0r")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tuyoq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fjrip")
+icon = ExtResource("1_qhqgy")
+
+[node name="PlayPause" type="CheckButton" parent="Container" unique_id=1225944942]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qhqgy")
 theme_override_icons/checked = ExtResource("2_g2els")
 theme_override_icons/unchecked = SubResource("CompressedTexture2D_3vyb7")
-alignment = 1
-icon_alignment = 1
-expand_icon = true
 metadata/_edit_use_anchors_ = true
+
+[node name="Skip" type="Button" parent="Container" unique_id=1903452469]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_smehm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ur7pv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y4r1p")
+icon = ExtResource("3_dqkch")
+
+[node name="StatusTimeout" type="Timer" parent="." unique_id=1912343647]
+wait_time = 2.0
+one_shot = true
+
+[node name="Status" type="Label" parent="." unique_id=2082396401]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = -3.2300003
+anchor_right = 0.5
+anchor_bottom = -3.2300003
+offset_left = -87.98639
+offset_top = 54.13701
+offset_right = 87.01361
+offset_bottom = 89.03284
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "status: default"
+horizontal_alignment = 1

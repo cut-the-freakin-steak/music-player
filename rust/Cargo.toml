@@ -6,7 +6,6 @@ description = "a (hopefully) stylish, functional, and slop-free music player"
 readme = "../README.md"
 repository = "https://github.com/cut-the-freakin-steak/music-player"
 license = "OSL-3.0"
-license-file = "../LICENSE"
 
 [lib]
 crate-type = [
