@@ -60,10 +60,13 @@ impl Player {
 
     #[func]
     fn play_pause_toggled(&mut self, toggled_on: bool) {
-        match toggled_on {
-            true => self.status_label.set_text("status: resumed !!>"),
-            false => self.status_label.set_text("status: paused !!>"),
-        };
+        if toggled_on {
+            self.status_label.set_text("status: resumed !!>");
+        }
+        else {
+            self.status_label.set_text("status: paused !!>");
+        }
+
         self.status_timeout.start();
     }
 
