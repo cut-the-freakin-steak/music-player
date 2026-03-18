@@ -31,29 +31,29 @@ impl IControl for Player {
         self.rewind
             .signals()
             .pressed()
-            .connect_other(self, Self::rewind_pressed);
+            .connect_other(self, Self::_rewind_pressed);
 
         self.play_pause
             .signals()
             .toggled()
-            .connect_other(self, Self::play_pause_toggled);
+            .connect_other(self, Self::_play_pause_toggled);
 
         self.skip
             .signals()
             .pressed()
-            .connect_other(self, Self::skip_pressed);
+            .connect_other(self, Self::_skip_pressed);
 
         self.status_timeout
             .signals()
             .timeout()
-            .connect_other(self, Self::status_timeout);
+            .connect_other(self, Self::_status_timeout);
     }
 }
 
 #[godot_api]
 impl Player {
     #[func]
-    fn rewind_pressed(&mut self) {
+    fn _rewind_pressed(&mut self) {
         self.status_label.set_text("status: rewinded!!!!!!!j");
         self.status_timeout.start();
     }
@@ -71,14 +71,14 @@ impl Player {
     }
 
     #[func]
-    fn skip_pressed(&mut self) {
+    fn _skip_pressed(&mut self) {
         self.status_label
             .set_text("status: SKIppeer!!!!!1111111111");
         self.status_timeout.start();
     }
 
     #[func]
-    fn status_timeout(&mut self) {
+    fn _status_timeout(&mut self) {
         self.status_label.set_text("status: default");
     }
 }
