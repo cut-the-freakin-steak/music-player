@@ -1,6 +1,7 @@
 use godot::classes::{Button, CheckButton, Control, IControl, Label, Timer};
 use godot::prelude::*;
 
+#[derive(PartialEq, PartialOrd)]
 enum Status {
     Default,
     Paused,
@@ -68,13 +69,29 @@ impl IControl for Player {
 impl Player {
     #[func]
     fn _rewind_pressed(&mut self) {
+        if self.last_status == Status::Rewind {
+            self.status_streak += 1;
+        }
+        else {
+            self.status_streak = 0;
+        }
         self.last_status = Status::Rewind;
-        self.status_label.set_text("status: rewinded!!!!!!!j");
+
+        if self.status_streak == 0 {
+            self.status_label.set_text("status: rewinded!!!!!!!j");
+        }
+        else {
+            self.status_label.set_text(&format!(
+                "status: rewinded!!!!!!!j x{}",
+                self.status_streak + 1
+            ));
+        }
         self.status_timeout.start();
     }
 
     #[func]
     fn _play_pause_toggled(&mut self, toggled_on: bool) {
+        self.status_streak = 0;
         if toggled_on {
             self.last_status = Status::Resumed;
             self.status_label.set_text("status: resumed !!>");
@@ -89,9 +106,24 @@ impl Player {
 
     #[func]
     fn _skip_pressed(&mut self) {
+        if self.last_status == Status::Skip {
+            self.status_streak += 1;
+        }
+        else {
+            self.status_streak = 0;
+        }
         self.last_status = Status::Skip;
-        self.status_label
-            .set_text("status: SKIppeer!!!!!1111111111");
+
+        if self.status_streak == 0 {
+            self.status_label
+                .set_text("status: SKIppeer!!!!!1111111111");
+        }
+        else {
+            self.status_label.set_text(&format!(
+                "status: SKIppeer!!!!!1111111111 x{}",
+                self.status_streak + 1
+            ));
+        }
         self.status_timeout.start();
     }
 
