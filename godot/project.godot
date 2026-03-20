@@ -12,6 +12,8 @@ config_version=5
 
 config/name="music-player"
 run/main_scene="uid://de30trtxaj2me"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="heartbeats-music-player"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="uid://cr56yp27mryrx"
 config/macos_native_icon="uid://cr56yp27mryrx"

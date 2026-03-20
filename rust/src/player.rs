@@ -96,7 +96,7 @@ impl Player {
         if toggled_on {
             self.last_status = Status::Resumed;
             self.status_label.set_text("status: resumed !!>");
-            let _ = play_audio("");
+            let _ = play_audio("res://assets/audio/Toby Fox - Dogsong.flac"); // i lowkey don't care if this fails
         }
         else {
             self.last_status = Status::Paused;

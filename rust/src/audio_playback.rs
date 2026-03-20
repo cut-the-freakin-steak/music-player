@@ -1,24 +1,25 @@
 use crate::audio_singleton::AudioSingleton;
+use crate::godot_print;
+
+use godot::classes::ProjectSettings;
 use godot::obj::Singleton;
-use rodio::mixer::Mixer;
-use rodio::{DeviceSinkError, MixerDeviceSink};
 use std::error::Error;
 use std::fs::File;
-
-/// if you dont do this then i hate you :c
-pub fn init_audio() -> Result<(MixerDeviceSink, Mixer), DeviceSinkError> {
-    let stream_handle = rodio::DeviceSinkBuilder::open_default_sink()?;
-    let mixer = stream_handle.mixer().to_owned();
-
-    return Ok((stream_handle, mixer));
-}
 
 /// play a given file
 pub fn play_audio(file_path: &str) -> Result<(), Box<dyn Error>> {
     let playback = AudioSingleton::singleton();
+    let project_settings = ProjectSettings::singleton();
+
+    let mut file_path = file_path.to_string();
+
+    if file_path.starts_with("res://") || file_path.starts_with("user://") {
+        file_path = project_settings.globalize_path(&file_path).to_string();
+    }
 
     let file = File::open(file_path)?;
 
+    // BUG: this line causes a panic and i dont fucking know why
     playback
         .bind()
         .player
@@ -26,5 +27,6 @@ pub fn play_audio(file_path: &str) -> Result<(), Box<dyn Error>> {
 
     playback.bind().player.sleep_until_end();
 
+    godot_print!("nothing wrong yet x4");
     return Ok(());
 }
