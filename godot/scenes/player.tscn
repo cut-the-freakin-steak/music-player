@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dla8g466exqvw" path="res://assets/sprites/skip_n_rewind_backwards.png" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cr56yp27mryrx" path="res://assets/sprites/icon.png" id="2_g2els"]
-[ext_resource type="Texture2D" uid="uid://cld5dxo47eu7i" path="res://assets/sprites/skip_n_rewind.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://cq4u3oppa2jvx" path="res://assets/sprites/skip_n_rewind.png" id="3_dqkch"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qlg0r"]
 
@@ -69,7 +69,8 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Status" type="Label" parent="." unique_id=2082396401]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = -3.2300003
 anchor_right = 0.5
