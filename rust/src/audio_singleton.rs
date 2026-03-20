@@ -2,10 +2,9 @@ use godot::classes::ProjectSettings;
 use godot::obj::Singleton;
 use godot::prelude::*;
 
-use std::error::Error;
 use std::fs::File;
 
-use rodio::{DeviceSinkError, MixerDeviceSink};
+use rodio::{DeviceSinkError, MixerDeviceSink, decoder::DecoderError};
 
 /// this will always be a child of /root, and if its not then something is wrong
 #[derive(GodotClass)]
@@ -44,12 +43,14 @@ impl AudioSingleton {
         let stream_handle = rodio::DeviceSinkBuilder::open_default_sink()?;
         let mixer = stream_handle.mixer();
         let audio_player = rodio::Player::connect_new(mixer);
+        audio_player.pause();
 
         godot_print!("nothing wrong yet x3");
         return Ok((stream_handle, audio_player));
     }
 
-    pub fn play_audio(&self, file_path: &str) -> Result<(), Box<dyn Error>> {
+    /// only dogsong available for now lmao
+    pub fn load_file(file_path: &str) -> Result<File, std::io::Error> {
         let project_settings = ProjectSettings::singleton();
 
         let mut file_path = file_path.to_string();
@@ -60,12 +61,12 @@ impl AudioSingleton {
 
         let file = File::open(file_path)?;
 
-        // BUG: this line causes a panic and i dont fucking know why
+        return Ok(file);
+    }
+
+    /// add a song file to the queue of the audio player
+    pub fn add_file_to_queue(&self, file: File) -> Result<(), DecoderError> {
         self.audio_player.append(rodio::Decoder::try_from(file)?);
-
-        self.audio_player.sleep_until_end();
-
-        godot_print!("nothing wrong yet x4");
         return Ok(());
     }
 }

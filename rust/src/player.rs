@@ -27,6 +27,9 @@ struct Player {
     #[init(node = "Container/Skip")]
     skip: OnReady<Gd<Button>>,
 
+    #[init(node = "AddSong")]
+    add_song: OnReady<Gd<Button>>,
+
     #[init(node = "StatusTimeout")]
     status_timeout: OnReady<Gd<Timer>>,
 
@@ -62,6 +65,11 @@ impl IControl for Player {
             .signals()
             .pressed()
             .connect_other(self, Self::_skip_pressed);
+
+        self.add_song
+            .signals()
+            .pressed()
+            .connect_other(self, Self::_add_song_to_queue);
 
         self.status_timeout
             .signals()
@@ -100,14 +108,12 @@ impl Player {
         if toggled_on {
             self.last_status = Status::Resumed;
             self.status_label.set_text("status: resumed !!>");
-            let _ = self
-                .audio_singleton
-                .bind()
-                .play_audio("res://assets/audio/Toby Fox - Dogsong.flac"); // i lowkey don't care if this fails
+            self.audio_singleton.bind().audio_player.play();
         }
         else {
             self.last_status = Status::Paused;
             self.status_label.set_text("status: paused !!>");
+            self.audio_singleton.bind().audio_player.pause();
         }
 
         self.status_timeout.start();
@@ -134,6 +140,23 @@ impl Player {
             ));
         }
         self.status_timeout.start();
+    }
+
+    #[func]
+    fn _add_song_to_queue(&mut self) {
+        self.status_label.set_text("status: ade dsong !!!l");
+
+        let song_file_result =
+            AudioSingleton::load_file("res://assets/audio/Toby Fox - Dogsong.flac");
+
+        if let Ok(song_file) = song_file_result {
+            if let Err(err) = self.audio_singleton.bind().add_file_to_queue(song_file) {
+                godot_error!("decoding error! {}", err);
+            }
+        }
+        else if let Err(err) = song_file_result {
+            godot_error!("there was an error retrieving the song file: {}", err);
+        }
     }
 
     #[func]
