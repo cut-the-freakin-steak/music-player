@@ -1,4 +1,5 @@
-use crate::audio_playback::play_audio;
+use crate::audio_singleton::AudioSingleton;
+
 use godot::classes::{Button, CheckButton, Control, IControl, Label, Timer};
 use godot::prelude::*;
 
@@ -37,6 +38,9 @@ struct Player {
 
     #[init(val = Status::Default)]
     last_status: Status,
+
+    #[init(node = "/root/GlobalAudio")]
+    audio_singleton: OnReady<Gd<AudioSingleton>>,
 }
 
 #[godot_api]
@@ -96,7 +100,10 @@ impl Player {
         if toggled_on {
             self.last_status = Status::Resumed;
             self.status_label.set_text("status: resumed !!>");
-            let _ = play_audio("res://assets/audio/Toby Fox - Dogsong.flac"); // i lowkey don't care if this fails
+            let _ = self
+                .audio_singleton
+                .bind()
+                .play_audio("res://assets/audio/Toby Fox - Dogsong.flac"); // i lowkey don't care if this fails
         }
         else {
             self.last_status = Status::Paused;
