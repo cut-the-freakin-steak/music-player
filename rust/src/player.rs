@@ -1,3 +1,4 @@
+use crate::audio_playback::play_audio;
 use godot::classes::{Button, CheckButton, Control, IControl, Label, Timer};
 use godot::prelude::*;
 
@@ -95,6 +96,7 @@ impl Player {
         if toggled_on {
             self.last_status = Status::Resumed;
             self.status_label.set_text("status: resumed !!>");
+            let _ = play_audio("");
         }
         else {
             self.last_status = Status::Paused;
