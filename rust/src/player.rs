@@ -69,7 +69,7 @@ impl IControl for Player {
         self.add_song
             .signals()
             .pressed()
-            .connect_other(self, Self::_add_song_to_queue);
+            .connect_other(self, Self::_add_song_to_queue_pressed);
 
         self.status_timeout
             .signals()
@@ -143,20 +143,12 @@ impl Player {
     }
 
     #[func]
-    fn _add_song_to_queue(&mut self) {
+    fn _add_song_to_queue_pressed(&mut self) {
         self.status_label.set_text("status: ade dsong !!!l");
 
-        let song_file_result =
-            AudioSingleton::load_file("res://assets/audio/Toby Fox - Dogsong.flac");
-
-        if let Ok(song_file) = song_file_result {
-            if let Err(err) = self.audio_singleton.bind().add_file_to_queue(song_file) {
-                godot_error!("decoding error! {}", err);
-            }
-        }
-        else if let Err(err) = song_file_result {
-            godot_error!("there was an error retrieving the song file: {}", err);
-        }
+        self.audio_singleton
+            .bind()
+            .add_file_path_to_queue("res://assets/audio/Toby Fox - Dogsong.flac");
     }
 
     #[func]

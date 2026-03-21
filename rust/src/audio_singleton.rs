@@ -39,6 +39,7 @@ impl INode for AudioSingleton {
 
 impl AudioSingleton {
     /// if you dont do this then i hate you :c
+    /// *CRUCIAL STEP!* initializes audio sink to allow audio to be played through [rodio](https://github.com/RustAudio/rodio?tab=readme-ov-file)
     fn init_audio() -> Result<(MixerDeviceSink, rodio::Player), DeviceSinkError> {
         let stream_handle = rodio::DeviceSinkBuilder::open_default_sink()?;
         let mixer = stream_handle.mixer();
@@ -49,7 +50,8 @@ impl AudioSingleton {
         return Ok((stream_handle, audio_player));
     }
 
-    /// only dogsong available for now lmao
+    /// wrapper around res:// and user:// file paths to load files
+    /// to go from a file path directly to player queue, see `AudioSingleton::add_file_path_to_queue`
     pub fn load_file(file_path: &str) -> Result<File, std::io::Error> {
         let project_settings = ProjectSettings::singleton();
 
@@ -64,9 +66,24 @@ impl AudioSingleton {
         return Ok(file);
     }
 
-    /// add a song file to the queue of the audio player
+    /// add a rust file to the queue of the audio player.
+    /// to go from a file path directly to player queue, see `AudioSingleton::add_file_path_to_queue`
     pub fn add_file_to_queue(&self, file: File) -> Result<(), DecoderError> {
         self.audio_player.append(rodio::Decoder::try_from(file)?);
         return Ok(());
+    }
+
+    /// add a valid file path to an audio file into the player's queue
+    pub fn add_file_path_to_queue(&self, file_path: &str) {
+        let song_file_result = AudioSingleton::load_file(file_path);
+
+        if let Ok(song_file) = song_file_result {
+            if let Err(err) = self.add_file_to_queue(song_file) {
+                godot_error!("decoding error! {}", err);
+            }
+        }
+        else if let Err(err) = song_file_result {
+            godot_error!("there was an error retrieving the song file: {}", err);
+        }
     }
 }
