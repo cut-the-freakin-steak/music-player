@@ -17,6 +17,12 @@ pub struct AudioSingleton {
 
     #[init(val = OnReady::manual())]
     pub audio_player: OnReady<rodio::Player>,
+
+    #[init(val = vec![])]
+    pub previous_songs: Vec<String>,
+
+    #[init(val = vec![])]
+    pub last_10_songs: Vec<File>,
 }
 
 #[godot_api]
@@ -52,7 +58,7 @@ impl AudioSingleton {
 
     /// wrapper around res:// and user:// file paths to load files
     /// to go from a file path directly to player queue, see `AudioSingleton::add_file_path_to_queue`
-    pub fn load_file(file_path: &str) -> Result<File, std::io::Error> {
+    pub fn load_file(&mut self, file_path: &str) -> Result<File, std::io::Error> {
         let project_settings = ProjectSettings::singleton();
 
         let mut file_path = file_path.to_string();
@@ -61,21 +67,36 @@ impl AudioSingleton {
             file_path = project_settings.globalize_path(&file_path).to_string();
         }
 
+        if self.previous_songs.len() >= u8::MAX as usize {
+            self.previous_songs.remove(0);
+        }
+
+        self.previous_songs.push(file_path.clone());
+
         let file = File::open(file_path)?;
 
         return Ok(file);
     }
 
-    /// add a rust file to the queue of the audio player.
+    /// add a rust file to the queue of the audio player and add file to vec of last 10 songs loaded.
     /// to go from a file path directly to player queue, see `AudioSingleton::add_file_path_to_queue`
-    pub fn add_file_to_queue(&self, file: File) -> Result<(), DecoderError> {
+    pub fn add_file_to_queue(&mut self, file: File) -> Result<(), DecoderError> {
+        let other_file = file.try_clone().expect("couldn't clone file");
         self.audio_player.append(rodio::Decoder::try_from(file)?);
+
+        if self.last_10_songs.len() >= 10 {
+            self.last_10_songs.remove(0);
+        }
+
+        self.last_10_songs.push(other_file);
+
         return Ok(());
     }
 
     /// add a valid file path to an audio file into the player's queue
-    pub fn add_file_path_to_queue(&self, file_path: &str) {
-        let song_file_result = AudioSingleton::load_file(file_path);
+    /// also adds file to vec of last 10 songs loaded
+    pub fn add_file_path_to_queue(&mut self, file_path: &str) {
+        let song_file_result = self.load_file(file_path);
 
         if let Ok(song_file) = song_file_result {
             if let Err(err) = self.add_file_to_queue(song_file) {

@@ -121,6 +121,8 @@ impl Player {
 
     #[func]
     fn _skip_pressed(&mut self) {
+        self.audio_singleton.bind().audio_player.skip_one();
+
         if self.last_status == Status::Skip {
             self.status_streak += 1;
         }
@@ -147,7 +149,7 @@ impl Player {
         self.status_label.set_text("status: ade dsong !!!l");
 
         self.audio_singleton
-            .bind()
+            .bind_mut()
             .add_file_path_to_queue("res://assets/audio/Toby Fox - Dogsong.flac");
     }
 

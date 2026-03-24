@@ -1,6 +1,6 @@
 [package]
 name = "music-player"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2024"
 description = "a (hopefully) stylish, functional, and slop-free music player"
 readme = "../README.md"
@@ -16,6 +16,7 @@ crate-type = [
 [dependencies]
 godot = { git = "https://github.com/godot-rust/gdext.git", branch = "master", features = [
   "api-custom",
+  # "experimental-threads",
   "experimental-wasm",
   "lazy-function-tables",
 ] }
