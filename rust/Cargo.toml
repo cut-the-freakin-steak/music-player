@@ -22,6 +22,7 @@ godot = { git = "https://github.com/godot-rust/gdext.git", branch = "master", fe
 ] }
 multitag = "0.4.3"
 rodio = "0.22.2"
+tokio = { version = "1.50.0", features = ["fs", "macros", "rt-multi-thread"] }
 
 [lints.clippy]
 needless_return = "allow"
